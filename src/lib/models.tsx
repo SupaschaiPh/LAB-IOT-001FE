@@ -5,7 +5,7 @@ export interface Book {
   year: number;
   is_published: boolean;
   description:string;
-  cover_url: string | null ;
+  cover_url: string;
   category: string;
   synopsis: string;
 }

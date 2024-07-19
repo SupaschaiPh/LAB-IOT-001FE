@@ -2,7 +2,7 @@ import useSWR from "swr";
 import { Book } from "../lib/models";
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../components/layout";
-import { Alert, Button, Checkbox, Container, Divider, NumberInput, TextInput } from "@mantine/core";
+import { Alert, Button, Checkbox, Container, Divider, NumberInput, TextInput,Textarea } from "@mantine/core";
 import Loading from "../components/loading";
 import { IconAlertTriangleFilled, IconTrash } from "@tabler/icons-react";
 import { isNotEmpty, useForm } from "@mantine/form";
@@ -10,6 +10,9 @@ import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { notifications } from "@mantine/notifications";
 import { modals } from "@mantine/modals";
+
+import { FileUploaderMinimal } from "@uploadcare/react-uploader";
+import "@uploadcare/react-uploader/core.css";
 
 export default function BookEditById() {
   const { bookId } = useParams();
@@ -26,6 +29,10 @@ export default function BookEditById() {
       author: "",
       year: 2024,
       is_published: false,
+      description: "lorem ipsum dolor sit amet",
+      category: "",
+      synopsis: "synopsisxx",
+      cover_url:""
     },
 
     validate: {
@@ -149,6 +156,18 @@ export default function BookEditById() {
                   {...bookEditForm.getInputProps("title")}
                 />
 
+{!import.meta.env.VITE_UPLOADDER_PUBLIC_KEY || (
+              <FileUploaderMinimal
+                pubkey={import.meta.env.VITE_UPLOADDER_PUBLIC_KEY}
+                maxLocalFileSizeBytes={1000000}
+                multiple={false}
+                imgOnly={true}
+                sourceList="local"
+                classNameUploader="my-config uc-light"
+                onFileUploadSuccess={(x)=>{  bookEditForm.setFieldValue("cover_url",x.cdnUrl); }}
+              />
+            )}
+
                 <TextInput
                   label="ชื่อผู้แต่ง"
                   placeholder="ชื่อผู้แต่ง"
@@ -164,8 +183,26 @@ export default function BookEditById() {
                 />
 
                 {/* TODO: เพิ่มรายละเอียดหนังสือ */}
-                {/* TODO: เพิ่มเรื่องย่อ */}
-                {/* TODO: เพิ่มหมวดหมู่(s) */}
+            <Textarea
+              label="รายละเอียดหนังสือ"
+              placeholder="รายละเอียดหนังสือ"
+              rows={3}
+              {...bookEditForm.getInputProps("description")}
+            />
+            {/* TODO: เพิ่มเรื่องย่อ */}
+            <Textarea
+              label="เรื่องย่อ"
+              placeholder="เรื่องย่อ"
+              rows={5}
+              {...bookEditForm.getInputProps("synopsis")}
+            />
+            {/* TODO: เพิ่มหมวดหมู่(s) */}
+            <TextInput
+              label="หมวดหมู่"
+              placeholder="หมวดหมู่"
+              description="ใช้ , คั่น"
+              {...bookEditForm.getInputProps("category")}
+            />
 
                 <Checkbox
                   label="เผยแพร่"

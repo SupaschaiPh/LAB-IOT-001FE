@@ -1,5 +1,5 @@
 import Layout from "../components/layout";
-import cafeBackgroundImage from "../assets/images/bg-cafe-2.jpg";
+import cafeBackgroundImage from "../assets/images/bg-cafe-3.jpg";
 import useSWR from "swr";
 import { Book } from "../lib/models";
 import Loading from "../components/loading";
@@ -7,8 +7,8 @@ import { Alert, Button } from "@mantine/core";
 import { IconAlertTriangleFilled, IconPlus } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
-export default function BooksPage() {
-  const { data: books, error } = useSWR<Book[]>("/books");
+export default function MenuPage() {
+  const { data: menus, error } = useSWR<Book[]>("/menus");
 
   return (
     <>
@@ -19,27 +19,27 @@ export default function BooksPage() {
             backgroundImage: `url(${cafeBackgroundImage})`,
           }}
         >
-          <h1 className="text-5xl mb-2">หนังสือ</h1>
-          <h2>รายการหนังสือทั้งหมด</h2>
+          <h1 className="text-5xl mb-2">เมนูกาแฟ และเครื่องดื่ม</h1>
+          <h2>รายการเมนูทั้งหมด</h2>
         </section>
 
         <section className="container mx-auto py-8">
           <div className="flex justify-between">
-            <h1>รายการหนังสือ</h1>
+            <h1>รายการเมนูเครื่องดื่ม</h1>
 
             <Button
               component={Link}
               leftSection={<IconPlus />}
-              to="/books/create"
+              to="/menu/create"
               size="xs"
               variant="primary"
               className="flex items-center space-x-2"
             >
-              เพิ่มหนังสือ
+              เพิ่มเมนู
             </Button>
           </div>
 
-          {!books && !error && <Loading />}
+          {!menus && !error && <Loading />}
           {error && (
             <Alert
               color="red"
@@ -51,10 +51,10 @@ export default function BooksPage() {
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {books && books?.length > 0 ? books?.map((book) => (
+            { menus && menus?.length > 0 ? menus?.map((book) => (
               <div className="border border-solid border-neutral-200" key={book.id}>
                 <img
-                  src={book.cover_url ?? "https://placehold.co/150x200"}
+                  src="https://placehold.co/150x200"
                   alt={book.title}
                   className="w-full object-cover aspect-[3/4]"
                 />
@@ -64,13 +64,14 @@ export default function BooksPage() {
                 </div>
 
                 <div className="flex justify-end px-4 pb-2">
-                  <Button component={Link} to={`/books/${book.id}`} size="xs" variant="default">
+                  <Button component={Link} to={`/menu/${book.id}`} size="xs" variant="default">
                     ดูรายละเอียด
                   </Button>
                 </div>
               </div>
             ))
-            : <p className="pt-2 text-red-600">ไม่พบข้อมูลหนังสือในฐานข้อมูล</p>}
+            : <p className="pt-2 text-red-600">ไม่พบข้อมูลเมนูในฐานข้อมูล</p>
+          }
           </div>
         </section>
       </Layout>

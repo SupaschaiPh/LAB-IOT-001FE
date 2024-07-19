@@ -1,51 +1,36 @@
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/layout";
-import {
-  Button,
-  Checkbox,
-  Container,
-  Divider,
-  NumberInput,
-  TextInput,
-  Textarea,
-} from "@mantine/core";
+import { Button, Checkbox, Container, Divider, NumberInput, TextInput,Textarea,FileInput } from "@mantine/core";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { notifications } from "@mantine/notifications";
 import { Book } from "../lib/models";
 
-import { FileUploaderMinimal } from "@uploadcare/react-uploader";
-import "@uploadcare/react-uploader/core.css";
-
-export default function BookCreatePage() {
+export default function MenuCreatePage() {
   const navigate = useNavigate();
 
   const [isProcessing, setIsProcessing] = useState(false);
+
   const bookCreateForm = useForm({
     initialValues: {
-      title: "",
-      author: "",
-      year: 2024,
-      is_published: false,
-      description: "lorem ipsum dolor sit amet",
-      category: "",
-      synopsis: "synopsisxx",
-      cover_url:""
+      name : "" ,
+      description  : "",
+      price : 0 ,
     },
 
     validate: {
-      title: isNotEmpty("กรุณาระบุชื่อหนังสือ"),
-      author: isNotEmpty("กรุณาระบุชื่อผู้แต่ง"),
-      year: isNotEmpty("กรุณาระบุปีที่พิมพ์หนังสือ"),
+      name: isNotEmpty("กรุณาระบุชื่อเมนู"),
+      price: isNotEmpty("กรุณาระบุราคา"),
     },
   });
 
-
   const handleSubmit = async (values: typeof bookCreateForm.values) => {
+    console.log('xx',values)
+
     try {
       setIsProcessing(true);
-      const response = await axios.post<Book>(`/books`, values);
+      const response = await axios.post<Book>(`/books`, values );
       notifications.show({
         title: "เพิ่มข้อมูลหนังสือสำเร็จ",
         message: "ข้อมูลหนังสือได้รับการเพิ่มเรียบร้อยแล้ว",
@@ -70,8 +55,7 @@ export default function BookCreatePage() {
       } else {
         notifications.show({
           title: "เกิดข้อผิดพลาดบางอย่าง",
-          message:
-            "กรุณาลองใหม่อีกครั้ง หรือดูที่ Console สำหรับข้อมูลเพิ่มเติม",
+          message: "กรุณาลองใหม่อีกครั้ง หรือดูที่ Console สำหรับข้อมูลเพิ่มเติม",
           color: "red",
         });
       }
@@ -86,27 +70,18 @@ export default function BookCreatePage() {
         <Container className="mt-8">
           <h1 className="text-xl">เพิ่มหนังสือในระบบ</h1>
 
-          <form
-            onSubmit={bookCreateForm.onSubmit(handleSubmit)}
-            className="space-y-8"
-          >
+          <form onSubmit={bookCreateForm.onSubmit(handleSubmit)} className="space-y-8">
             <TextInput
               label="ชื่อหนังสือ"
               placeholder="ชื่อหนังสือ"
               {...bookCreateForm.getInputProps("title")}
             />
 
-            {!import.meta.env.VITE_UPLOADDER_PUBLIC_KEY || (
-              <FileUploaderMinimal
-                pubkey={import.meta.env.VITE_UPLOADDER_PUBLIC_KEY}
-                maxLocalFileSizeBytes={1000000}
-                multiple={false}
-                imgOnly={true}
-                sourceList="local"
-                classNameUploader="my-config uc-light"
-                onFileUploadSuccess={(x)=>{  bookCreateForm.setFieldValue("cover_url",x.cdnUrl); console.log(bookCreateForm.getValues())}}
-              />
-            )}
+            {/*<FileInput
+            label="ปกหนังสือ"
+            placeholder="ปกหนังสือ"
+            {...bookCreateForm.getInputProps("cover")}
+            />*/}
 
             <TextInput
               label="ชื่อผู้แต่ง"
@@ -143,7 +118,6 @@ export default function BookCreatePage() {
               description="ใช้ , คั่น"
               {...bookCreateForm.getInputProps("category")}
             />
-            
             <Checkbox
               label="เผยแพร่"
               {...bookCreateForm.getInputProps("is_published", {

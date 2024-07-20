@@ -8,7 +8,7 @@ import { IconAlertTriangleFilled, IconPlus } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
 export default function BooksPage() {
-  const { data: books, error } = useSWR<Book[]>("/books");
+  const { data: books, error, isLoading } = useSWR<Book[]>("/books");
 
   return (
     <>
@@ -51,26 +51,48 @@ export default function BooksPage() {
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {books && books?.length > 0 ? books?.map((book) => (
-              <div className="border border-solid border-neutral-200" key={book.id}>
-                <img
-                  src={book.cover_url ?? "https://placehold.co/150x200"}
-                  alt={book.title}
-                  className="w-full object-cover aspect-[3/4]"
-                />
-                <div className="p-4">
-                  <h2 className="text-lg font-semibold line-clamp-2">{book.title}</h2>
-                  <p className="text-xs text-neutral-500">โดย {book.author}</p>
-                </div>
+            {!!error ||  isLoading ||
+              (books && books?.length > 0 ? (
+                books?.map((book) => (
+                  <div
+                    className="border border-solid border-neutral-200"
+                    key={book.id}
+                  >
+                    <img
+                      src={
+                        book.cover_url && book.cover_url.length > 0
+                          ? book.cover_url
+                          : "https://placehold.co/150x200"
+                      }
+                      alt={book.title}
+                      className="w-full object-cover aspect-[3/4]"
+                    />
+                    <div className="p-4">
+                      <h2 className="text-lg font-semibold line-clamp-2">
+                        {book.title}
+                      </h2>
+                      <p className="text-xs text-neutral-500">
+                        โดย {book.author}
+                      </p>
+                    </div>
 
-                <div className="flex justify-end px-4 pb-2">
-                  <Button component={Link} to={`/books/${book.id}`} size="xs" variant="default">
-                    ดูรายละเอียด
-                  </Button>
-                </div>
-              </div>
-            ))
-            : <p className="pt-2 text-red-600">ไม่พบข้อมูลหนังสือในฐานข้อมูล</p>}
+                    <div className="flex justify-end px-4 pb-2">
+                      <Button
+                        component={Link}
+                        to={`/books/${book.id}`}
+                        size="xs"
+                        variant="default"
+                      >
+                        ดูรายละเอียด
+                      </Button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="pt-2 text-red-600">
+                  ไม่พบข้อมูลหนังสือในฐานข้อมูล
+                </p>
+              ))}
           </div>
         </section>
       </Layout>

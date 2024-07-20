@@ -1,42 +1,51 @@
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/layout";
-import { Button, Checkbox, Container, Divider, NumberInput, TextInput,Textarea } from "@mantine/core";
+import {
+  Button,
+  Container,
+  Divider,
+  NumberInput,
+  TextInput,
+  Textarea,
+} from "@mantine/core";
 import { isNotEmpty, useForm } from "@mantine/form";
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { notifications } from "@mantine/notifications";
-import { Book } from "../lib/models";
+import {  Menu } from "../lib/models";
+
+import {  FileUploaderRegular } from "@uploadcare/react-uploader";
+import "@uploadcare/react-uploader/core.css";
 
 export default function MenuCreatePage() {
   const navigate = useNavigate();
 
   const [isProcessing, setIsProcessing] = useState(false);
-
-  const bookCreateForm = useForm({
+  const menuCreateForm = useForm({
     initialValues: {
-      name : "" ,
-      description  : "",
-      price : 0 ,
+      name: "",
+      price: 60,
+      description: "lorem ipsum dolor sit amet",
+      cover_url:""
     },
 
     validate: {
       name: isNotEmpty("กรุณาระบุชื่อเมนู"),
-      price: isNotEmpty("กรุณาระบุราคา"),
+      price: isNotEmpty("กรุณาราคาเมนู"),
     },
   });
 
-  const handleSubmit = async (values: typeof bookCreateForm.values) => {
-    console.log('xx',values)
 
+  const handleSubmit = async (values: typeof menuCreateForm.values) => {
     try {
       setIsProcessing(true);
-      const response = await axios.post<Book>(`/books`, values );
+      const response = await axios.post<Menu>(`/menus`, values);
       notifications.show({
-        title: "เพิ่มข้อมูลหนังสือสำเร็จ",
-        message: "ข้อมูลหนังสือได้รับการเพิ่มเรียบร้อยแล้ว",
+        title: "เพิ่มข้อมูลเมนูสำเร็จ",
+        message: "ข้อมูลเมนูได้รับการเพิ่มเรียบร้อยแล้ว",
         color: "teal",
       });
-      navigate(`/books/${response.data.id}`);
+      navigate(`/menus/${response.data.id}`);
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 422) {
@@ -55,7 +64,8 @@ export default function MenuCreatePage() {
       } else {
         notifications.show({
           title: "เกิดข้อผิดพลาดบางอย่าง",
-          message: "กรุณาลองใหม่อีกครั้ง หรือดูที่ Console สำหรับข้อมูลเพิ่มเติม",
+          message:
+            "กรุณาลองใหม่อีกครั้ง หรือดูที่ Console สำหรับข้อมูลเพิ่มเติม",
           color: "red",
         });
       }
@@ -68,61 +78,46 @@ export default function MenuCreatePage() {
     <>
       <Layout>
         <Container className="mt-8">
-          <h1 className="text-xl">เพิ่มหนังสือในระบบ</h1>
+          <h1 className="text-xl">เพิ่มเมนูในระบบ</h1>
 
-          <form onSubmit={bookCreateForm.onSubmit(handleSubmit)} className="space-y-8">
+          <form
+            onSubmit={menuCreateForm.onSubmit(handleSubmit)}
+            className="space-y-8"
+          >
             <TextInput
-              label="ชื่อหนังสือ"
-              placeholder="ชื่อหนังสือ"
-              {...bookCreateForm.getInputProps("title")}
+              label="ชื่อเมนู"
+              placeholder="ชื่อเมนู"
+              {...menuCreateForm.getInputProps("name")}
             />
 
-            {/*<FileInput
-            label="ปกหนังสือ"
-            placeholder="ปกหนังสือ"
-            {...bookCreateForm.getInputProps("cover")}
-            />*/}
-
-            <TextInput
-              label="ชื่อผู้แต่ง"
-              placeholder="ชื่อผู้แต่ง"
-              {...bookCreateForm.getInputProps("author")}
-            />
+            {!import.meta.env.VITE_UPLOADDER_PUBLIC_KEY || (
+              <div>
+              <p>ภาพเมนู</p>
+              
+              <FileUploaderRegular
+                pubkey={import.meta.env.VITE_UPLOADDER_PUBLIC_KEY}
+                maxLocalFileSizeBytes={1000000}
+                multiple={false}
+                imgOnly={true}
+                classNameUploader="my-config uc-light"
+                onFileUploadSuccess={(x)=>{  menuCreateForm.setFieldValue("cover_url",x.cdnUrl); }}
+              />
+              </div>
+            )}
 
             <NumberInput
-              label="ปีที่พิมพ์"
-              placeholder="ปีที่พิมพ์"
-              min={1900}
-              max={new Date().getFullYear() + 1}
-              {...bookCreateForm.getInputProps("year")}
+              label="ราคา"
+              placeholder="ราคา"
+              min={0}
+              {...menuCreateForm.getInputProps("price")}
             />
 
-            {/* TODO: เพิ่มรายละเอียดหนังสือ */}
+            {/* TODO: เพิ่มรายละเอียดเมนู */}
             <Textarea
-              label="รายละเอียดหนังสือ"
-              placeholder="รายละเอียดหนังสือ"
+              label="รายละเอียดเมนู"
+              placeholder="รายละเอียดเมนู"
               rows={3}
-              {...bookCreateForm.getInputProps("description")}
-            />
-            {/* TODO: เพิ่มเรื่องย่อ */}
-            <Textarea
-              label="เรื่องย่อ"
-              placeholder="เรื่องย่อ"
-              rows={5}
-              {...bookCreateForm.getInputProps("synopsis")}
-            />
-            {/* TODO: เพิ่มหมวดหมู่(s) */}
-            <TextInput
-              label="หมวดหมู่"
-              placeholder="หมวดหมู่"
-              description="ใช้ , คั่น"
-              {...bookCreateForm.getInputProps("category")}
-            />
-            <Checkbox
-              label="เผยแพร่"
-              {...bookCreateForm.getInputProps("is_published", {
-                type: "checkbox",
-              })}
+              {...menuCreateForm.getInputProps("description")}
             />
 
             <Divider />

@@ -15,7 +15,7 @@ import axios, { AxiosError } from "axios";
 import { notifications } from "@mantine/notifications";
 import { Book } from "../lib/models";
 
-import { FileUploaderMinimal } from "@uploadcare/react-uploader";
+import { FileUploaderRegular } from "@uploadcare/react-uploader";
 import "@uploadcare/react-uploader/core.css";
 
 export default function BookCreatePage() {
@@ -97,15 +97,18 @@ export default function BookCreatePage() {
             />
 
             {!import.meta.env.VITE_UPLOADDER_PUBLIC_KEY || (
-              <FileUploaderMinimal
+              <div>
+                <p>ปกหนังสือ</p>
+              <FileUploaderRegular
                 pubkey={import.meta.env.VITE_UPLOADDER_PUBLIC_KEY}
                 maxLocalFileSizeBytes={1000000}
                 multiple={false}
                 imgOnly={true}
-                sourceList="local"
+                sourceList="local,url"
                 classNameUploader="my-config uc-light"
                 onFileUploadSuccess={(x)=>{  bookCreateForm.setFieldValue("cover_url",x.cdnUrl); console.log(bookCreateForm.getValues())}}
               />
+              </div>
             )}
 
             <TextInput

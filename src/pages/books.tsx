@@ -62,7 +62,7 @@ export default function BooksPage() {
                       src={
                         book.cover_url && book.cover_url.length > 0
                           ? book.cover_url
-                          : "https://placehold.co/150x200"
+                          : "https://placehold.co/150x200?text=cover"
                       }
                       alt={book.title}
                       className="w-full object-cover aspect-[3/4]"

@@ -70,23 +70,23 @@ export default function ReceiptPage() {
               <tbody>
                 {/* แสดงรายการออเดอร์ */}
                 {receipt?.order_items?.map((i) => (
-                  <tr>
+                  <tr key={i.id}>
                     <td className="flex gap-2 items-center">
                       <img
                         className="h-6 aspect-square"
                         src={
-                          i.menu.cover_url && i.menu.cover_url.length > 0
+                          i.menu && i.menu.cover_url && i.menu.cover_url.length > 0
                             ? i.menu.cover_url
                             : "https://placehold.co/1x1"
                         }
                       />
                       <p>
-                        {i.menu_id} : {i?.menu.name}
+                        {i?.menu_id || -1} : {i?.menu?.name || "Null"}
                       </p>
                     </td>
-                    <td className="text-right pl-4">{i.price}</td>
-                    <td className="text-right pl-4 ">{i.quantity}</td>
-                    <td className="text-right pl-4 ">{i.price * i.quantity}</td>
+                    <td className="text-right pl-4">{i?.price?.toLocaleString()}</td>
+                    <td className="text-right pl-4 ">{i?.quantity?.toLocaleString()}</td>
+                    <td className="text-right pl-4 ">{(i?.price * i?.quantity)?.toLocaleString()}</td>
                   </tr>
                 ))}
               </tbody>
@@ -101,7 +101,7 @@ export default function ReceiptPage() {
                 <tr>
                   <td colSpan={3}>ยอดรวม</td>
                   <td className="text-nowrap text-right">
-                    {receipt?.total_price} บาท
+                    {receipt?.total_price?.toLocaleString()} บาท
                   </td>
                 </tr>
               </tfoot>

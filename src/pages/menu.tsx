@@ -74,9 +74,6 @@ export default function MenuPage() {
     setOrders({});
   }
 
-  function handlerDeleteMenu(menu_id:number){
-
-  }
 
   return (
     <>
@@ -130,7 +127,7 @@ export default function MenuPage() {
                       src={
                         menu.cover_url && menu.cover_url.length > 0
                           ? menu.cover_url
-                          : "https://placehold.co/200x150"
+                          : "https://placehold.co/200x150?text=menu"
                       }
                       alt={menu.name}
                       className="w-full object-cover aspect-[4/3]"

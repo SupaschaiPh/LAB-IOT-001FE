@@ -20,6 +20,9 @@ import StaffPage from "./pages/staff";
 import MenuEditById from "./pages/menu-edit-by-id";
 import ReceiptPage from "./pages/receipt";
 import StaffBookPage from "./pages/staff-books";
+import StaffMenuPage from "./pages/staff-menus";
+import StaffOrderPage from "./pages/staff-orders";
+import StaffStudentPage from "./pages/staff-students";
 
 const theme = createTheme({
   primaryColor: "orange",
@@ -71,6 +74,16 @@ const router = createBrowserRouter([
     path: "/staff/books",
     element: <StaffBookPage />,
   },
+  {
+    path: "/staff/menus",
+    element: <StaffMenuPage />,
+  },{
+    path: "/staff/students",
+    element: <StaffStudentPage />,
+  },{
+    path: "/staff/orders",
+    element: <StaffOrderPage />,
+  },
 
   
 ]);
@@ -90,6 +103,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             })
             .then((res) => res.data),
       }}
+      
+    
     >
       <MantineProvider theme={theme}>
         <Notifications position="top-right" />

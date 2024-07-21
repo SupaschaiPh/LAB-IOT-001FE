@@ -180,7 +180,7 @@ export default function BookEditById() {
                         src={
                           book.cover_url && book.cover_url.length > 0
                             ? book.cover_url
-                            : "https://placehold.co/150x200"
+                            : "https://placehold.co/150x200?text=cover"
                         }
                       />
                       <FileUploaderRegular

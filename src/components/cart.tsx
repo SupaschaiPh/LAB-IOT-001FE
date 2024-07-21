@@ -48,8 +48,8 @@ export default function CartComponent({ data,onCancel,loading,onSubmit }: CartI)
                     <p>{i?.name}</p>
                     </div>
                     </td>
-                  <td className="text-right">{i?.count}</td>
-                  <td className="text-right text-nowrap">{i?.price * i?.count}</td>
+                  <td className="text-right">{i?.count?.toLocaleString()}</td>
+                  <td className="text-right text-nowrap">{(i?.price * i?.count)?.toLocaleString()}</td>
                 </tr>
               ))}
               </tbody>
@@ -64,7 +64,7 @@ export default function CartComponent({ data,onCancel,loading,onSubmit }: CartI)
                     ยอดรวม
                 </td>
                 <td className="text-nowrap">
-                    {data.map((i:any)=>i?.price*i?.count).reduce((x:number,y:number)=>x+y,0)} บาท
+                    {data.map((i:any)=>i?.price*i?.count).reduce((x:number,y:number)=>x+y,0)?.toLocaleString()} บาท
                 </td>
                 </tr>
                 

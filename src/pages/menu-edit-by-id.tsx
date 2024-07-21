@@ -174,7 +174,7 @@ export default function MenuEditById() {
                         src={
                           menu.cover_url && menu.cover_url.length > 0
                             ? menu.cover_url
-                            : "https://placehold.co/200x150"
+                            : "https://placehold.co/200x150?text=cover"
                         }
                       />
                       <FileUploaderRegular

@@ -2,8 +2,7 @@ import { Paper, TextInput } from "@mantine/core";
 import Layout from "../components/layout";
 import { IconCoffee, IconNotebook, IconReceipt2, IconUsersGroup } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-import { useMemo, useState } from "react";
-import Datatable from "../components/datatable";
+import { useState } from "react";
 
 export default function StaffPage() {
   const navigate = useNavigate();

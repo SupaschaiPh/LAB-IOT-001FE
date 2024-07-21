@@ -15,7 +15,16 @@ export interface Menu {
   name: string;
   price: number;
   description: string;
-  cover_url:string;
+  cover_url: string;
+}
+
+export interface Student {
+  id: number;
+  stu_id: number;
+  name: string;
+  lastname: string;
+  bod: Date | string;
+  gender: string;
 }
 
 export interface OrderMenu {
@@ -44,7 +53,6 @@ export interface Order {
   created_at: string;
   order_items: OrderItem[];
 }
-
 
 export interface Cart extends Menu {
   count: number;

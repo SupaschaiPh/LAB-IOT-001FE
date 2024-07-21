@@ -76,7 +76,7 @@ export default function StaffBookPage() {
         field: "year",
       },
     ],
-    []
+    [],
   );
 
   async function editHandler(id: number, values: any) {
@@ -126,7 +126,7 @@ export default function StaffBookPage() {
     try {
       await axios.delete(`/books/${id}`);
       notifications.show({
-        title: "ลบหนังสือสำเร็จ id "+id,
+        title: "ลบหนังสือสำเร็จ id " + id,
         message: "ลบหนังสือเล่มนี้ออกจากระบบเรียบร้อยแล้ว",
         color: "red",
       });
@@ -134,14 +134,14 @@ export default function StaffBookPage() {
       if (error instanceof AxiosError) {
         if (error.response?.status === 404) {
           notifications.show({
-            title: "ไม่พบข้อมูลหนังสือ id "+id,
+            title: "ไม่พบข้อมูลหนังสือ id " + id,
             message: "ไม่พบข้อมูลหนังสือที่ต้องการลบ",
             color: "red",
           });
         } else if (error.response?.status || 500 >= 500) {
           notifications.show({
             title: "เกิดข้อผิดพลาดบางอย่าง",
-            message: "กรุณาลองใหม่อีกครั้งหนังสือ id "+id,
+            message: "กรุณาลองใหม่อีกครั้งหนังสือ id " + id,
             color: "red",
           });
         }
@@ -153,8 +153,8 @@ export default function StaffBookPage() {
           color: "red",
         });
       }
-    }finally{
-        mutate(books);
+    } finally {
+      mutate(books);
     }
   };
 
@@ -217,9 +217,11 @@ export default function StaffBookPage() {
                 ),
                 labels: { confirm: "ลบ", cancel: "ยกเลิก" },
                 onConfirm: async () => {
-                     setIsProcessing(true);
-                     await Promise.all(selectedRow?.map((v)=>handleDelete(v?.id)));
-                     setIsProcessing(false);
+                  setIsProcessing(true);
+                  await Promise.all(
+                    selectedRow?.map((v) => handleDelete(v?.id)),
+                  );
+                  setIsProcessing(false);
                 },
                 confirmProps: {
                   color: "red",

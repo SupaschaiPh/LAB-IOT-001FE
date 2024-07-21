@@ -23,6 +23,7 @@ import StaffBookPage from "./pages/staff-books";
 import StaffMenuPage from "./pages/staff-menus";
 import StaffOrderPage from "./pages/staff-orders";
 import StaffStudentPage from "./pages/staff-students";
+import StudentCreatePage from "./pages/student-create";
 
 const theme = createTheme({
   primaryColor: "orange",
@@ -77,15 +78,19 @@ const router = createBrowserRouter([
   {
     path: "/staff/menus",
     element: <StaffMenuPage />,
-  },{
+  },
+  {
     path: "/staff/students",
     element: <StaffStudentPage />,
-  },{
+  },
+  {
     path: "/staff/orders",
     element: <StaffOrderPage />,
   },
-
-  
+  {
+    path: "/students/create",
+    element: <StudentCreatePage />,
+  },
 ]);
 
 if (import.meta.env.VITE_API_URL) {
@@ -99,12 +104,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         fetcher: (url: string) =>
           axios
             .get(url, {
-              baseURL: import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api/v1",
+              baseURL:
+                import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api/v1",
             })
             .then((res) => res.data),
       }}
-      
-    
     >
       <MantineProvider theme={theme}>
         <Notifications position="top-right" />
@@ -113,5 +117,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </ModalsProvider>
       </MantineProvider>
     </SWRConfig>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -19,10 +19,12 @@ export default function StaffStudentPage() {
     mutate,
   } = useSWR<any[]>("/students", {
     onSuccess: function (data) {
-      setmenuData(data);
+      setmenuData(data?.map((v) => ({ ...v, fixed_stu_id: v.stu_id })));
     },
   });
-  const [menuData, setmenuData] = useState<any[]>(students as any[]);
+  const [menuData, setmenuData] = useState<any[]>(
+    (students as any[])?.map((v) => ({ ...v, fixed_stu_id: v.stu_id })),
+  );
   const [isProcessing, setIsProcessing] = useState(false);
   const [quickFilterText, setQuickFilterText] = useState("");
   const [selectedRow, setSelectedRow] = useState<any[]>([]);
@@ -31,41 +33,25 @@ export default function StaffStudentPage() {
   const colDef = useMemo(
     () => [
       {
-        field: "name",
+        field: "stu_id",
         headerCheckboxSelection: true,
         checkboxSelection: true,
         showDisabledCheckboxes: true,
-        cellRenderer: (d: any) => (
-          <Link to={"/students/" + d?.data?.id}>{d.value}</Link>
-        ),
       },
       {
-        field: "description",
-        cellEditor: "agLargeTextCellEditor",
-        cellEditorPopup: true,
+        field: "name",
       },
       {
-        field: "cover_url",
-        cellEditor: "agLargeTextCellEditor",
-        cellEditorPopup: true,
-        cellRenderer: (d: any) => (
-          <img
-            className=" aspect-[3/4] object-cover"
-            height="100%"
-            src={
-              d.value && d.value.length > 0
-                ? d.value
-                : "https://placehold.co/75x100?text=cover"
-            }
-          />
-        ),
+        field: "lastname",
       },
       {
-        field: "price",
-        cellRenderer:(d:any)=><p>{d?.value?.toLocaleString()}</p>
+        field: "bod",
+      },
+      {
+        field: "gender",
       },
     ],
-    []
+    [],
   );
 
   async function editHandler(id: number, values: any) {
@@ -81,7 +67,7 @@ export default function StaffStudentPage() {
       if (error instanceof AxiosError) {
         if (error.response?.status === 404) {
           notifications.show({
-            title: "ไม่พบข้อมูลนักเรียน",
+            title: "ไม่พบข้อมูลนักเรียน id " + id,
             message: "ไม่พบข้อมูลนักเรียนที่ต้องการแก้ไข",
             color: "red",
           });
@@ -115,7 +101,7 @@ export default function StaffStudentPage() {
     try {
       await axios.delete(`/students/${id}`);
       notifications.show({
-        title: "ลบนักเรียนสำเร็จ id "+id,
+        title: "ลบนักเรียนสำเร็จ id " + id,
         message: "ลบนักเรียนเล่มนี้ออกจากระบบเรียบร้อยแล้ว",
         color: "red",
       });
@@ -123,14 +109,14 @@ export default function StaffStudentPage() {
       if (error instanceof AxiosError) {
         if (error.response?.status === 404) {
           notifications.show({
-            title: "ไม่พบข้อมูลนักเรียน id "+id,
+            title: "ไม่พบข้อมูลนักเรียน id " + id,
             message: "ไม่พบข้อมูลนักเรียนที่ต้องการลบ",
             color: "red",
           });
         } else if (error.response?.status || 500 >= 500) {
           notifications.show({
             title: "เกิดข้อผิดพลาดบางอย่าง",
-            message: "กรุณาลองใหม่อีกครั้งนักเรียน id "+id,
+            message: "กรุณาลองใหม่อีกครั้งนักเรียน id " + id,
             color: "red",
           });
         }
@@ -142,8 +128,8 @@ export default function StaffStudentPage() {
           color: "red",
         });
       }
-    }finally{
-        mutate(students);
+    } finally {
+      mutate(students);
     }
   };
 
@@ -206,9 +192,11 @@ export default function StaffStudentPage() {
                 ),
                 labels: { confirm: "ลบ", cancel: "ยกเลิก" },
                 onConfirm: async () => {
-                     setIsProcessing(true);
-                     await Promise.all(selectedRow?.map((v)=>handleDelete(v?.id)));
-                     setIsProcessing(false);
+                  setIsProcessing(true);
+                  await Promise.all(
+                    selectedRow?.map((v) => handleDelete(v?.fixed_stu_id)),
+                  );
+                  setIsProcessing(false);
                 },
                 confirmProps: {
                   color: "red",
@@ -229,7 +217,7 @@ export default function StaffStudentPage() {
           onEdit={(e) => {
             const data = { ...e.data };
             delete data?.id;
-            editHandler(e.data.id, data);
+            editHandler(e?.data?.fixed_stu_id, data);
           }}
           quickFilterText={quickFilterText}
           onSelect={() =>

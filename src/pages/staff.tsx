@@ -1,13 +1,18 @@
 import { Paper, TextInput } from "@mantine/core";
 import Layout from "../components/layout";
-import { IconCoffee, IconNotebook, IconReceipt2, IconUsersGroup } from "@tabler/icons-react";
+import {
+  IconCoffee,
+  IconNotebook,
+  IconReceipt2,
+  IconUsersGroup,
+} from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function StaffPage() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  
+
   const staffMenu = [
     {
       icon: <IconCoffee className="text-orange-500" size={30} />,
@@ -20,10 +25,10 @@ export default function StaffPage() {
       path: "/staff/books",
     },
     {
-        icon: <IconReceipt2 className="text-orange-500" size={30} />,
-        title: "จัดการคำสั่งซื้อ",
-        path: "/staff/orders",
-      },
+      icon: <IconReceipt2 className="text-orange-500" size={30} />,
+      title: "จัดการคำสั่งซื้อ",
+      path: "/staff/orders",
+    },
     {
       icon: <IconUsersGroup className="text-orange-500" size={30} />,
       title: "จัดการนักเรียน",
@@ -31,7 +36,9 @@ export default function StaffPage() {
     },
   ];
 
-  if(staffMenu.length%2 == 0){staffMenu.push({icon:<IconCoffee></IconCoffee>, title:"",path:""})}
+  if (staffMenu.length % 2 == 0) {
+    staffMenu.push({ icon: <IconCoffee></IconCoffee>, title: "", path: "" });
+  }
   return (
     <Layout>
       <section className="container mx-auto px-4 pt-4 pb-8">
@@ -48,32 +55,34 @@ export default function StaffPage() {
           placeholder="เมนู"
           className="col-span-2 mb-4"
           value={search}
-          onChange={(e)=>{setSearch(e.target.value);}}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
         />
-        {staffMenu.filter((m)=>(search==""||m.title.includes(search))).map((menu, index) => (
-          <Paper
-            key={index}
-            className={`transition hover:opacity-60 ${!!menu?.path || "opacity-60"} cursor-default col-span-${
-              index === 0 ? 2 : 1
-            }`}
-            shadow="xs"
-            withBorder
-            p="xl"
-            onClick={() => navigate(menu?.path)}
-          >
-            <div className="flex gap-4 items-center">
-              <span
-                className={`flex border bg-orange-100  ${!!menu?.path || "hidden"} rounded p-2 items-center`}
-              >
-                {menu?.icon}
-              </span>
-              <h3>{menu?.title}</h3>
-            </div>
-          </Paper>
-        ))}
+        {staffMenu
+          .filter((m) => search == "" || m.title.includes(search))
+          .map((menu, index) => (
+            <Paper
+              key={index}
+              className={`transition hover:opacity-60 ${!!menu?.path || "opacity-60"} cursor-default col-span-${
+                index === 0 ? 2 : 1
+              }`}
+              shadow="xs"
+              withBorder
+              p="xl"
+              onClick={() => navigate(menu?.path)}
+            >
+              <div className="flex gap-4 items-center">
+                <span
+                  className={`flex border bg-orange-100  ${!!menu?.path || "hidden"} rounded p-2 items-center`}
+                >
+                  {menu?.icon}
+                </span>
+                <h3>{menu?.title}</h3>
+              </div>
+            </Paper>
+          ))}
       </section>
-      
-
     </Layout>
   );
 }

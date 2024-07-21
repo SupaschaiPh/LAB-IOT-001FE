@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import {  Menu } from "../lib/models";
+import { Menu } from "../lib/models";
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../components/layout";
 import {

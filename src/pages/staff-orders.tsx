@@ -26,24 +26,24 @@ export default function StaffOrderPage() {
             v?.order_items?.map((vv: any) => ({
               menu_id: vv.menu_id,
               quantity: vv.quantity,
-            }))
+            })),
           ),
-        }))
+        })),
       );
     },
   });
   const [ordersData, setordersData] = useState<any[]>(
     (orders as any[])?.map((v) => ({
       ...v,
-      created_at:new Date(v.created_at).toLocaleString(),
-      updated_at:new Date(v.updated_at).toLocaleString(),
+      created_at: new Date(v.created_at).toLocaleString(),
+      updated_at: new Date(v.updated_at).toLocaleString(),
       order_items: JSON.stringify(
         v?.order_items?.map((vv: any) => ({
           menu_id: vv.menu_id,
           quantity: vv.quantity,
-        }))
+        })),
       ),
-    }))
+    })),
   );
   const [isProcessing, setIsProcessing] = useState(false);
   const [quickFilterText, setQuickFilterText] = useState("");
@@ -60,17 +60,15 @@ export default function StaffOrderPage() {
         cellRenderer: (d: any) => (
           <Link to={"/receipt/" + d?.data?.id}>{d.value}</Link>
         ),
-        editable:false,
-        
+        editable: false,
       },
       {
         field: "created_at",
-        editable:false,
-
+        editable: false,
       },
       {
         field: "updated_at",
-        editable:false
+        editable: false,
       },
       {
         field: "total_price",
@@ -82,16 +80,15 @@ export default function StaffOrderPage() {
         cellEditorPopup: true,
       },
     ],
-    []
+    [],
   );
 
   async function editHandler(id: number, values: any) {
-    
     try {
       setIsProcessing(true);
-      
+
       await axios.patch(`/orders/${id}`, {
-        order_items :  JSON.parse(values?.order_items)
+        order_items: JSON.parse(values?.order_items),
       });
       notifications.show({
         title: "แก้ไขข้อมูลคำสั่งซื้อสำเร็จ",
@@ -228,7 +225,7 @@ export default function StaffOrderPage() {
                 onConfirm: async () => {
                   setIsProcessing(true);
                   await Promise.all(
-                    selectedRow?.map((v) => handleDelete(v?.id))
+                    selectedRow?.map((v) => handleDelete(v?.id)),
                   );
                   setIsProcessing(false);
                 },

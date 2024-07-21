@@ -9,7 +9,7 @@ interface DatatableI {
   gref: React.MutableRefObject<any> | undefined;
   onEdit: ((e: any) => void) | undefined;
   onSelect: ((e: any) => void) | undefined;
-  quickFilterText: string|undefined;
+  quickFilterText: string | undefined;
 }
 export default function Datatable({
   rowData,

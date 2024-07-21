@@ -57,10 +57,10 @@ export default function BookByIdPage() {
                   <h3>หมวดหมู่</h3>
                   {/* TODO: เพิ่มหมวดหมู่(s) */}
                   <div className="flex flex-wrap gap-2">
-                    {  book.category?.split(",").filter((f)=>f!="").map(
-                      (c)=> <Badge color="teal">{c.trim()}</Badge>
-                    )}
-
+                    {book.category
+                      ?.split(",")
+                      .filter((f) => f != "")
+                      .map((c) => <Badge color="teal">{c.trim()}</Badge>)}
                   </div>
                 </div>
               </div>

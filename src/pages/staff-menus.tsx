@@ -62,10 +62,10 @@ export default function StaffMenuPage() {
       },
       {
         field: "price",
-        cellRenderer:(d:any)=><p>{d?.value?.toLocaleString()}</p>
+        cellRenderer: (d: any) => <p>{d?.value?.toLocaleString()}</p>,
       },
     ],
-    []
+    [],
   );
 
   async function editHandler(id: number, values: any) {
@@ -115,7 +115,7 @@ export default function StaffMenuPage() {
     try {
       await axios.delete(`/menus/${id}`);
       notifications.show({
-        title: "ลบเมนูสำเร็จ id "+id,
+        title: "ลบเมนูสำเร็จ id " + id,
         message: "ลบเมนูนี้ออกจากระบบเรียบร้อยแล้ว",
         color: "red",
       });
@@ -123,14 +123,14 @@ export default function StaffMenuPage() {
       if (error instanceof AxiosError) {
         if (error.response?.status === 404) {
           notifications.show({
-            title: "ไม่พบข้อมูลเมนู id "+id,
+            title: "ไม่พบข้อมูลเมนู id " + id,
             message: "ไม่พบข้อมูลเมนูที่ต้องการลบ",
             color: "red",
           });
         } else if (error.response?.status || 500 >= 500) {
           notifications.show({
             title: "เกิดข้อผิดพลาดบางอย่าง",
-            message: "กรุณาลองใหม่อีกครั้งเมนู id "+id,
+            message: "กรุณาลองใหม่อีกครั้งเมนู id " + id,
             color: "red",
           });
         }
@@ -142,8 +142,8 @@ export default function StaffMenuPage() {
           color: "red",
         });
       }
-    }finally{
-        mutate(menus);
+    } finally {
+      mutate(menus);
     }
   };
 
@@ -200,15 +200,16 @@ export default function StaffMenuPage() {
                 title: "คุณต้องการลบเมนูนี้ใช่หรือไม่",
                 children: (
                   <span className="text-xs">
-                    เมื่อคุณดำนเนินการลบเมนูนี้แล้ว
-                    จะไม่สามารถย้อนกลับได้
+                    เมื่อคุณดำนเนินการลบเมนูนี้แล้ว จะไม่สามารถย้อนกลับได้
                   </span>
                 ),
                 labels: { confirm: "ลบ", cancel: "ยกเลิก" },
                 onConfirm: async () => {
-                     setIsProcessing(true);
-                     await Promise.all(selectedRow?.map((v)=>handleDelete(v?.id)));
-                     setIsProcessing(false);
+                  setIsProcessing(true);
+                  await Promise.all(
+                    selectedRow?.map((v) => handleDelete(v?.id)),
+                  );
+                  setIsProcessing(false);
                 },
                 confirmProps: {
                   color: "red",

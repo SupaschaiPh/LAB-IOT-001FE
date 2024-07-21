@@ -28,8 +28,7 @@ export default function ReceiptPage() {
             {error.message}
           </Alert>
         )}
-        {
-            !isLoading && !error && receipt &&
+        {!isLoading && !error && receipt && (
           <Paper p="lg">
             <h2>ใบเสร็จ</h2>
             <table className="w-full mb-8">
@@ -75,7 +74,9 @@ export default function ReceiptPage() {
                       <img
                         className="h-6 aspect-square"
                         src={
-                          i.menu && i.menu.cover_url && i.menu.cover_url.length > 0
+                          i.menu &&
+                          i.menu.cover_url &&
+                          i.menu.cover_url.length > 0
                             ? i.menu.cover_url
                             : "https://placehold.co/1x1"
                         }
@@ -84,9 +85,15 @@ export default function ReceiptPage() {
                         {i?.menu_id || -1} : {i?.menu?.name || "Null"}
                       </p>
                     </td>
-                    <td className="text-right pl-4">{i?.price?.toLocaleString()}</td>
-                    <td className="text-right pl-4 ">{i?.quantity?.toLocaleString()}</td>
-                    <td className="text-right pl-4 ">{(i?.price * i?.quantity)?.toLocaleString()}</td>
+                    <td className="text-right pl-4">
+                      {i?.price?.toLocaleString()}
+                    </td>
+                    <td className="text-right pl-4 ">
+                      {i?.quantity?.toLocaleString()}
+                    </td>
+                    <td className="text-right pl-4 ">
+                      {(i?.price * i?.quantity)?.toLocaleString()}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -107,7 +114,7 @@ export default function ReceiptPage() {
               </tfoot>
             </table>
           </Paper>
-        }
+        )}
       </section>
     </Layout>
   );

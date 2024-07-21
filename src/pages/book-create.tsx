@@ -31,7 +31,7 @@ export default function BookCreatePage() {
       description: "lorem ipsum dolor sit amet",
       category: "",
       synopsis: "synopsisxx",
-      cover_url:""
+      cover_url: "",
     },
 
     validate: {
@@ -40,7 +40,6 @@ export default function BookCreatePage() {
       year: isNotEmpty("กรุณาระบุปีที่พิมพ์หนังสือ"),
     },
   });
-
 
   const handleSubmit = async (values: typeof bookCreateForm.values) => {
     try {
@@ -99,15 +98,18 @@ export default function BookCreatePage() {
             {!import.meta.env.VITE_UPLOADDER_PUBLIC_KEY || (
               <div>
                 <p>ปกหนังสือ</p>
-              <FileUploaderRegular
-                pubkey={import.meta.env.VITE_UPLOADDER_PUBLIC_KEY}
-                maxLocalFileSizeBytes={1000000}
-                multiple={false}
-                imgOnly={true}
-                sourceList="local,url"
-                classNameUploader="my-config uc-light"
-                onFileUploadSuccess={(x)=>{  bookCreateForm.setFieldValue("cover_url",x.cdnUrl); console.log(bookCreateForm.getValues())}}
-              />
+                <FileUploaderRegular
+                  pubkey={import.meta.env.VITE_UPLOADDER_PUBLIC_KEY}
+                  maxLocalFileSizeBytes={1000000}
+                  multiple={false}
+                  imgOnly={true}
+                  sourceList="local,url"
+                  classNameUploader="my-config uc-light"
+                  onFileUploadSuccess={(x) => {
+                    bookCreateForm.setFieldValue("cover_url", x.cdnUrl);
+                    console.log(bookCreateForm.getValues());
+                  }}
+                />
               </div>
             )}
 
@@ -146,7 +148,7 @@ export default function BookCreatePage() {
               description="ใช้ , คั่น"
               {...bookCreateForm.getInputProps("category")}
             />
-            
+
             <Checkbox
               label="เผยแพร่"
               {...bookCreateForm.getInputProps("is_published", {

@@ -12,9 +12,9 @@ import { isNotEmpty, useForm } from "@mantine/form";
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { notifications } from "@mantine/notifications";
-import {  Menu } from "../lib/models";
+import { Menu } from "../lib/models";
 
-import {  FileUploaderRegular } from "@uploadcare/react-uploader";
+import { FileUploaderRegular } from "@uploadcare/react-uploader";
 import "@uploadcare/react-uploader/core.css";
 
 export default function MenuCreatePage() {
@@ -26,7 +26,7 @@ export default function MenuCreatePage() {
       name: "",
       price: 60,
       description: "lorem ipsum dolor sit amet",
-      cover_url:""
+      cover_url: "",
     },
 
     validate: {
@@ -34,7 +34,6 @@ export default function MenuCreatePage() {
       price: isNotEmpty("กรุณาราคาเมนู"),
     },
   });
-
 
   const handleSubmit = async (values: typeof menuCreateForm.values) => {
     try {
@@ -92,16 +91,18 @@ export default function MenuCreatePage() {
 
             {!import.meta.env.VITE_UPLOADDER_PUBLIC_KEY || (
               <div>
-              <p>ภาพเมนู</p>
-              
-              <FileUploaderRegular
-                pubkey={import.meta.env.VITE_UPLOADDER_PUBLIC_KEY}
-                maxLocalFileSizeBytes={1000000}
-                multiple={false}
-                imgOnly={true}
-                classNameUploader="my-config uc-light"
-                onFileUploadSuccess={(x)=>{  menuCreateForm.setFieldValue("cover_url",x.cdnUrl); }}
-              />
+                <p>ภาพเมนู</p>
+
+                <FileUploaderRegular
+                  pubkey={import.meta.env.VITE_UPLOADDER_PUBLIC_KEY}
+                  maxLocalFileSizeBytes={1000000}
+                  multiple={false}
+                  imgOnly={true}
+                  classNameUploader="my-config uc-light"
+                  onFileUploadSuccess={(x) => {
+                    menuCreateForm.setFieldValue("cover_url", x.cdnUrl);
+                  }}
+                />
               </div>
             )}
 

@@ -4,16 +4,12 @@ import useSWR from "swr";
 import { Cart, Menu, OrderItem } from "../lib/models";
 import Loading from "../components/loading";
 import { Alert, Button, NumberInput } from "@mantine/core";
-import {
-  IconAlertTriangleFilled,
-  IconPlus,
-} from "@tabler/icons-react";
+import { IconAlertTriangleFilled, IconPlus } from "@tabler/icons-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import CartComponent from "../components/cart";
 import { notifications } from "@mantine/notifications";
 import axios, { AxiosError } from "axios";
-
 
 export default function MenuPage() {
   const navigate = useNavigate();
@@ -26,7 +22,12 @@ export default function MenuPage() {
   const handleOrder = async () => {
     try {
       setIsProcessing(true);
-      const response = await axios.post<OrderItem>(`/orders`, {order_items:cartsData.map((c)=>({menu_id:c.id,quantity:c.count}))});
+      const response = await axios.post<OrderItem>(`/orders`, {
+        order_items: cartsData.map((c) => ({
+          menu_id: c.id,
+          quantity: c.count,
+        })),
+      });
       notifications.show({
         title: "เพิ่มข้อมูลเมนูสำเร็จ",
         message: "ข้อมูลเมนูได้รับการเพิ่มเรียบร้อยแล้ว",
@@ -60,7 +61,6 @@ export default function MenuPage() {
       setIsProcessing(false);
     }
   };
-  
 
   function handlerSelect(menu: Menu, count: number): void {
     const oldIndex = cartsData.findIndex((c) => c?.id === menu.id);
@@ -73,7 +73,6 @@ export default function MenuPage() {
     setCartsData([]);
     setOrders({});
   }
-
 
   return (
     <>
@@ -116,7 +115,8 @@ export default function MenuPage() {
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {!!error || isLoading ||
+            {!!error ||
+              isLoading ||
               (menus && menus?.length > 0 ? (
                 menus?.map((menu) => (
                   <div
@@ -164,7 +164,14 @@ export default function MenuPage() {
                       </Button>
                     </div>
                     <div className="flex px-4 pb-2 gap-2">
-                      <Button  component={Link} to={"/menu/edit/"+menu.id} size="xs"  fullWidth variant="default" className="w-1/2">
+                      <Button
+                        component={Link}
+                        to={"/menu/edit/" + menu.id}
+                        size="xs"
+                        fullWidth
+                        variant="default"
+                        className="w-1/2"
+                      >
                         แก้ไข
                       </Button>
                     </div>
@@ -176,7 +183,12 @@ export default function MenuPage() {
           </div>
         </section>
 
-        <CartComponent data={cartsData} loading={isProcessing} onSubmit={handleOrder} onCancel={handlerDeleteCartsData} />
+        <CartComponent
+          data={cartsData}
+          loading={isProcessing}
+          onSubmit={handleOrder}
+          onCancel={handlerDeleteCartsData}
+        />
       </Layout>
     </>
   );

@@ -127,7 +127,7 @@ export default function MenuPage() {
                       src={
                         menu.cover_url && menu.cover_url.length > 0
                           ? menu.cover_url
-                          : "https://placehold.co/200x150?text=menu"
+                          : "https://placehold.co/200x150?text=Menu"
                       }
                       alt={menu.name}
                       className="w-full object-cover aspect-[4/3]"
@@ -137,7 +137,7 @@ export default function MenuPage() {
                         {menu.name}
                       </h2>
                       <p className="text-xs text-neutral-500">
-                        ราคา {menu.price}
+                        ราคา {menu.price.toLocaleString()} บ.
                       </p>
                     </div>
 

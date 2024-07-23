@@ -37,14 +37,12 @@ export default function HomePage() {
           </div>
         </div>
         <p className="text-right mt-8">
-          ปัจจุบันค่าเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ ....
+          ปัจจุบันค่าเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ สุภัศชัย
+          65070242&nbsp;
           {/* TODO: ชื่อของตนเอง, รหัสประจำตัวนักศึกษา และแนะนำคาเฟ่นี้ต่ออีกสักหน่อย + ใส่รูปของตนเอง (ไม่จำเป็นหากไม่สะดวกใจใส่รูป) */}
-          ซึ่งมีบริการ... Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Architecto placeat sit ea sapiente officia sunt cumque impedit,
-          reiciendis quis eius asperiores! Minus, mollitia? Vitae inventore odio
-          quod ducimus similique, expedita sequi, reiciendis rem recusandae
-          impedit voluptatibus quo veritatis ut quis et suscipit? Eligendi,
-          neque! Earum quaerat unde similique totam. Pariatur!
+          ซึ่งมีบริการสุดจิงจัยมากมาย 2 อย่างคือ การอ่านหนังสือ
+          และขายเครื่องดื่มนั้นเองงง
+          หากคุณว่างไม่มีอะไรจะทำจนถึงขนาดเลือนมานั่งอ่านถึงข้อความนี้ก็ลองมานั่งตากลมที่ค่าเฟเรา
         </p>
       </section>
 

@@ -35,9 +35,6 @@ export default function StaffMenuPage() {
         headerCheckboxSelection: true,
         checkboxSelection: true,
         showDisabledCheckboxes: true,
-        cellRenderer: (d: any) => (
-          <Link to={"/menus/" + d?.data?.id}>{d.value}</Link>
-        ),
       },
       {
         field: "description",
@@ -55,7 +52,7 @@ export default function StaffMenuPage() {
             src={
               d.value && d.value.length > 0
                 ? d.value
-                : "https://placehold.co/75x100?text=cover"
+                : "https://placehold.co/75x100?text=Cover"
             }
           />
         ),
@@ -191,7 +188,7 @@ export default function StaffMenuPage() {
           >
             รีเฟรชตาราง
           </Button>
-          <Button component={Link} to="/menus/create">
+          <Button component={Link} to="/menu/create">
             เพิ่มเมนู
           </Button>
           <Button

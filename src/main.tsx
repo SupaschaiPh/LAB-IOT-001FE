@@ -24,6 +24,7 @@ import StaffMenuPage from "./pages/staff-menus";
 import StaffOrderPage from "./pages/staff-orders";
 import StaffStudentPage from "./pages/staff-students";
 import StudentCreatePage from "./pages/student-create";
+import NotFoundPage from "./pages/404";
 
 const theme = createTheme({
   primaryColor: "orange",
@@ -90,7 +91,10 @@ const router = createBrowserRouter([
   {
     path: "/students/create",
     element: <StudentCreatePage />,
-  },
+  },{
+    path:"*",
+    element:<NotFoundPage/>
+  }
 ]);
 
 if (import.meta.env.VITE_API_URL) {

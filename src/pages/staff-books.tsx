@@ -55,7 +55,7 @@ export default function StaffBookPage() {
             src={
               d.value && d.value.length > 0
                 ? d.value
-                : "https://placehold.co/75x100?text=cover"
+                : "https://placehold.co/75x100?text=Cover"
             }
           />
         ),

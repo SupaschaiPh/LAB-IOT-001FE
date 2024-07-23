@@ -38,13 +38,13 @@ export default function MenuCreatePage() {
   const handleSubmit = async (values: typeof menuCreateForm.values) => {
     try {
       setIsProcessing(true);
-      const response = await axios.post<Menu>(`/menus`, values);
+      await axios.post<Menu>(`/menus`, values);
       notifications.show({
         title: "เพิ่มข้อมูลเมนูสำเร็จ",
         message: "ข้อมูลเมนูได้รับการเพิ่มเรียบร้อยแล้ว",
         color: "teal",
       });
-      navigate(`/menus/${response.data.id}`);
+      navigate(`/menu/`);
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 422) {
@@ -120,6 +120,7 @@ export default function MenuCreatePage() {
               rows={3}
               {...menuCreateForm.getInputProps("description")}
             />
+            
 
             <Divider />
 

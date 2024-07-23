@@ -16,6 +16,7 @@ export interface Menu {
   price: number;
   description: string;
   cover_url: string;
+  extension: string;
 }
 
 export interface Student {

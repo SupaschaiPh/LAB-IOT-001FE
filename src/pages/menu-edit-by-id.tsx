@@ -36,7 +36,7 @@ export default function MenuEditById() {
       name: "",
       price: 60,
       description: "lorem ipsum dolor sit amet",
-      cover_url: "",
+      cover_url: ""
     },
 
     validate: {

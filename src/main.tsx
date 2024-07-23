@@ -16,6 +16,15 @@ import { ModalsProvider } from "@mantine/modals";
 import BookCreatePage from "./pages/book-create";
 import MenuPage from "./pages/menu";
 import MenuCreatePage from "./pages/menu-create";
+import StaffPage from "./pages/staff";
+import MenuEditById from "./pages/menu-edit-by-id";
+import ReceiptPage from "./pages/receipt";
+import StaffBookPage from "./pages/staff-books";
+import StaffMenuPage from "./pages/staff-menus";
+import StaffOrderPage from "./pages/staff-orders";
+import StaffStudentPage from "./pages/staff-students";
+import StudentCreatePage from "./pages/student-create";
+import NotFoundPage from "./pages/404";
 
 const theme = createTheme({
   primaryColor: "orange",
@@ -48,10 +57,44 @@ const router = createBrowserRouter([
     element: <MenuPage />,
   },
   {
-    path: "/menu",
+    path: "/menu/create",
     element: <MenuCreatePage />,
   },
-  
+  {
+    path: "/menu/edit/:menuId",
+    element: <MenuEditById />,
+  },
+  {
+    path: "/receipt/:receiptId",
+    element: <ReceiptPage />,
+  },
+  {
+    path: "/staff",
+    element: <StaffPage />,
+  },
+  {
+    path: "/staff/books",
+    element: <StaffBookPage />,
+  },
+  {
+    path: "/staff/menus",
+    element: <StaffMenuPage />,
+  },
+  {
+    path: "/staff/students",
+    element: <StaffStudentPage />,
+  },
+  {
+    path: "/staff/orders",
+    element: <StaffOrderPage />,
+  },
+  {
+    path: "/students/create",
+    element: <StudentCreatePage />,
+  },{
+    path:"*",
+    element:<NotFoundPage/>
+  }
 ]);
 
 if (import.meta.env.VITE_API_URL) {
@@ -65,7 +108,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         fetcher: (url: string) =>
           axios
             .get(url, {
-              baseURL: import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api/v1",
+              baseURL:
+                import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api/v1",
             })
             .then((res) => res.data),
       }}
@@ -77,5 +121,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </ModalsProvider>
       </MantineProvider>
     </SWRConfig>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

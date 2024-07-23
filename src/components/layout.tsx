@@ -36,7 +36,13 @@ export default function Layout({ children }: LayoutProps) {
                 className="flex items-center h-14 px-1 no-underline text-neutral-600 font-semibold text-sm"
               >
                 เมนู
-              </Link> 
+              </Link>
+              <Link
+                to={"/staff"}
+                className="flex items-center h-14 px-1 no-underline text-neutral-600 font-semibold text-sm"
+              >
+                สตาฟ
+              </Link>
             </Group>
 
             <div></div>

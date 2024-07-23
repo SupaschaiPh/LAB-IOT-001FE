@@ -22,23 +22,27 @@ export default function HomePage() {
         <div className="grid grid-cols-3 gap-4">
           <p className="text-left col-span-2">
             IoT Library & Cafe เป็นร้านกาแฟที่มีหนังสืออยู่นิดหน่อยให้คุณได้อ่าน
-            และเรียนรู้เรื่องใหม่ๆ ที่เกี่ยวกับเทคโนโลยี IoT โดยคาเฟ่ของเรานั้น ก่อตั้งขึ้นโดย
-            ผศ.ดร. ปานวิทย์ ธุวะนุติ ซึ่งเป็นอาจารย์ในวิชา Internet of Things และนายกฤตณัฏฐ์
-            ศิริพรนพคุณ เป็นผู้ช่วยสอนในหัวข้อ FastAPI และ React ในวิชานี้
+            และเรียนรู้เรื่องใหม่ๆ ที่เกี่ยวกับเทคโนโลยี IoT โดยคาเฟ่ของเรานั้น
+            ก่อตั้งขึ้นโดย ผศ.ดร. ปานวิทย์ ธุวะนุติ ซึ่งเป็นอาจารย์ในวิชา
+            Internet of Things และนายกฤตณัฏฐ์ ศิริพรนพคุณ เป็นผู้ช่วยสอนในหัวข้อ
+            FastAPI และ React ในวิชานี้
           </p>
 
           <div>
-            <img src={ajPanwitImage} alt="Panwit Tuwanut" className="h-full w-full object-cover" />
+            <img
+              src={ajPanwitImage}
+              alt="Panwit Tuwanut"
+              className="h-full w-full object-cover"
+            />
           </div>
         </div>
         <p className="text-right mt-8">
-          ปัจจุบันค่าเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ ....
+          ปัจจุบันค่าเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ สุภัศชัย
+          65070242&nbsp;
           {/* TODO: ชื่อของตนเอง, รหัสประจำตัวนักศึกษา และแนะนำคาเฟ่นี้ต่ออีกสักหน่อย + ใส่รูปของตนเอง (ไม่จำเป็นหากไม่สะดวกใจใส่รูป) */}
-          ซึ่งมีบริการ... Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-          placeat sit ea sapiente officia sunt cumque impedit, reiciendis quis eius asperiores!
-          Minus, mollitia? Vitae inventore odio quod ducimus similique, expedita sequi, reiciendis
-          rem recusandae impedit voluptatibus quo veritatis ut quis et suscipit? Eligendi, neque!
-          Earum quaerat unde similique totam. Pariatur!
+          ซึ่งมีบริการสุดจิงจัยมากมาย 2 อย่างคือ การอ่านหนังสือ
+          และขายเครื่องดื่มนั้นเองงง
+          หากคุณว่างไม่มีอะไรจะทำจนถึงขนาดเลือนมานั่งอ่านถึงข้อความนี้ก็ลองมานั่งตากลมที่ค่าเฟเรา
         </p>
       </section>
 

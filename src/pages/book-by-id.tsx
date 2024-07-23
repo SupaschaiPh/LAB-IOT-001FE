@@ -33,7 +33,11 @@ export default function BookByIdPage() {
               <p className="italic text-neutral-500 mb-4">โดย {book.author}</p>
               <div className="grid grid-cols-1 lg:grid-cols-3">
                 <img
-                  src={book.cover_url ?? "https://placehold.co/150x200"}
+                  src={
+                    book.cover_url && book.cover_url.length > 0
+                      ? book.cover_url
+                      : "https://placehold.co/150x200?text=cover"
+                  }
                   alt={book.title}
                   className="w-full object-cover aspect-[3/4]"
                 />
@@ -53,10 +57,10 @@ export default function BookByIdPage() {
                   <h3>หมวดหมู่</h3>
                   {/* TODO: เพิ่มหมวดหมู่(s) */}
                   <div className="flex flex-wrap gap-2">
-                    {  book.category?.split(",").filter((f)=>f!="").map(
-                      (c)=> <Badge color="teal">{c.trim()}</Badge>
-                    )}
-
+                    {book.category
+                      ?.split(",")
+                      .filter((f) => f != "")
+                      .map((c) => <Badge color="teal">{c.trim()}</Badge>)}
                   </div>
                 </div>
               </div>

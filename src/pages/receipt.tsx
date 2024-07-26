@@ -50,6 +50,14 @@ export default function ReceiptPage() {
                       new Date(receipt?.created_at).toLocaleString()}
                   </td>
                 </tr>
+                <tr>
+                  <td colSpan={99}>
+                    <p className="font-bold">หมายเหตุ</p>
+                    <p  className="bg-gray-50 rounded p-2" >
+                      {receipt?.note || "-"}
+                    </p>
+                  </td>
+                </tr>
               </tbody>
             </table>
             <table className="w-full">

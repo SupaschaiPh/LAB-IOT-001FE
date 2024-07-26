@@ -5,13 +5,15 @@ import {
   AccordionPanel,
   Button,
   Paper,
+  Textarea,
 } from "@mantine/core";
+import { useState } from "react";
 
 export interface CartI {
   data: any;
   onCancel: () => void;
   loading: boolean;
-  onSubmit: () => void;
+  onSubmit: (note:string) => void;
 }
 
 export default function CartComponent({
@@ -20,6 +22,7 @@ export default function CartComponent({
   loading,
   onSubmit,
 }: CartI) {
+  const [note, setNote] = useState("");
   return (
     <Paper className="fixed right-0 bottom-0 w-96 z-50" shadow="xs" withBorder>
       <Accordion>
@@ -83,14 +86,23 @@ export default function CartComponent({
               </tfoot>
             </table>
 
+            <Textarea
+            label="หมายเหตุ"
+            rows={2}
+            className="mt-4"
+            value={note}
+            onChange={e=>setNote(e.target.value)}
+            disabled={!data || data?.length <= 0}
+            ></Textarea>
+
             <div className="flex gap-2 justify-end mt-4">
-              <Button onClick={onCancel} disabled={!data} color="red" size="xs">
+              <Button onClick={onCancel} disabled={!data || data?.length <= 0} color="red" size="xs">
                 ยกเลิก
               </Button>
               <Button
-                onClick={onSubmit}
+                onClick={()=>onSubmit(note)}
                 loading={loading}
-                disabled={!data}
+                disabled={!data || data?.length <= 0}
                 size="xs"
               >
                 เสร็จสิ้น

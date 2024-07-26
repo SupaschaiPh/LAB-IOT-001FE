@@ -79,6 +79,11 @@ export default function StaffOrderPage() {
         cellEditor: "agLargeTextCellEditor",
         cellEditorPopup: true,
       },
+      {
+        field: "note",
+        cellEditor: "agLargeTextCellEditor",
+        cellEditorPopup: true,
+      },
     ],
     [],
   );
@@ -88,6 +93,7 @@ export default function StaffOrderPage() {
       setIsProcessing(true);
 
       await axios.patch(`/orders/${id}`, {
+        note:values.note,
         order_items: JSON.parse(values?.order_items),
       });
       notifications.show({
@@ -208,9 +214,6 @@ export default function StaffOrderPage() {
             loading={isValidating || isLoading}
           >
             รีเฟรชตาราง
-          </Button>
-          <Button component={Link} to="/orders/create">
-            เพิ่มคำสั่งซื้อ
           </Button>
           <Button
             onClick={() => {

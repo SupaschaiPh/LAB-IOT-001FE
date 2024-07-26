@@ -53,6 +53,7 @@ export interface Order {
   total_price: number;
   created_at: string;
   order_items: OrderItem[];
+  note:string|null
 }
 
 export interface Cart extends Menu {

@@ -19,10 +19,11 @@ export default function MenuPage() {
   const [cartsData, setCartsData] = useState<Cart[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleOrder = async () => {
+  const handleOrder = async (note:string) => {
     try {
       setIsProcessing(true);
       const response = await axios.post<OrderItem>(`/orders`, {
+        note:note,
         order_items: cartsData.map((c) => ({
           menu_id: c.id,
           quantity: c.count,
